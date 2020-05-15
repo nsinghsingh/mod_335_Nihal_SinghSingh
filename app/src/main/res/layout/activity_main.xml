@@ -237,6 +237,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingHorizontal="5dp">
 
@@ -245,6 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights"
                 tools:text="Monday" />
 
@@ -252,7 +254,9 @@
                 android:id="@+id/dailyTemperature1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="00 °C" />
 
             <ImageView
                 android:id="@+id/dailyWeatherIcon1"
@@ -270,6 +274,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingHorizontal="5dp">
 
@@ -278,6 +283,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights"
                 tools:text="Tuesday" />
 
@@ -285,7 +291,9 @@
                 android:id="@+id/dailyTemperature2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="00 °C" />
 
             <ImageView
                 android:id="@+id/dailyWeatherIcon2"
@@ -304,6 +312,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingHorizontal="5dp">
 
@@ -312,6 +321,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights"
                 tools:text="Wednesday" />
 
@@ -319,7 +329,9 @@
                 android:id="@+id/dailyTemperature3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="00 °C" />
 
             <ImageView
                 android:id="@+id/dailyWeatherIcon3"
@@ -338,6 +350,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingHorizontal="5dp">
 
@@ -346,6 +359,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights"
                 tools:text="Thursday" />
 
@@ -353,7 +367,9 @@
                 android:id="@+id/dailyTemperature4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="00 °C" />
 
             <ImageView
                 android:id="@+id/dailyWeatherIcon4"
@@ -372,6 +388,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingHorizontal="5dp">
 
@@ -380,6 +397,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 tools:ignore="NestedWeights"
                 tools:text="Friday" />
 
@@ -387,7 +405,9 @@
                 android:id="@+id/dailyTemperature5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="00 °C" />
 
             <ImageView
                 android:id="@+id/dailyWeatherIcon5"
