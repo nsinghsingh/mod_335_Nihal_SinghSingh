@@ -1,6 +1,5 @@
 package com.example.weather;
 
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
 

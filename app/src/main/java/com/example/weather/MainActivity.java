@@ -4,31 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private double latitude;
     private double longitude;
     private Weather currentWeather;
-    private Weather[] hourlyWeather;
-    private Weather[] dailyWeather;
+    private Weather[] hourlyWeather = new Weather[6];
+    private Weather[] dailyWeather = new Weather[5];
     private String city;
     private LocalDateTime lastUpdate;
     private LocationManager locationManager;
@@ -79,20 +75,20 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }, 0);
         }
         Location location = locationManager.getLastKnownLocation(provider);
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        getWeather();
+        if(location != null){
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+        new GetInfo().execute(Double.toString(latitude), Double.toString(longitude));
     }
 
-    private void getWeather(){
-        String url = Connection.apiRequest(Double.toString(latitude), Double.toString(longitude));
-        String jsonString = Connection.getHttpData(url);
-        Gson gson = new Gson();
-        Map<?, ?> map = gson.fromJson(jsonString, Map.class);
-        cityText.setText((CharSequence) map.get("name"));
-        double temperature = (Double) map.get("main.temp");
+    private void showWeather(String jsonString){
+
+        city = rootObj.get("name").getAsString();
+        cityText.setText(city);
+        double temperature = main.get("temperature").getAsDouble();
         currentWeather.setTemperature(temperature);
-        String weatherIcon = (String) map.get("weather.main");
+        String weatherIcon = weather.get("icon").getAsString();
         currentWeather.setIconString(weatherIcon);
         lastUpdate = LocalDateTime.now();
         for (int i = 0; i < 6; i++){
@@ -129,5 +125,30 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+
+    private class GetInfo extends AsyncTask<String,Void,String> {
+        ProgressDialog pd = new ProgressDialog(MainActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd.setTitle("Getting weather...");
+            pd.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Connection connection = new Connection();
+            String url = connection.apiRequest(params[0], params[1]);
+            return connection.getHttpData(url);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            showWeather(s);
+        }
     }
 }
