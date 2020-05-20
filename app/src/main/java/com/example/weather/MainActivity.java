@@ -16,6 +16,11 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.weather.Model.OpenWeatherMap;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         for (int i = 0; i < 5; i++){
             int id = getResources().getIdentifier("day" + (i+1), "id", getPackageName());
             TextView day = findViewById(id);
-            id = getResources().getIdentifier("dayWeatherIcon" + (i+1), "id", getPackageName());
+            id = getResources().getIdentifier("dailyWeatherIcon" + (i+1), "id", getPackageName());
             ImageView dailyWeatherIcon = findViewById(id);
             id = getResources().getIdentifier("dailyTemperature" + (i+1), "id", getPackageName());
             TextView dailyTemperature = findViewById(id);
@@ -83,24 +88,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void showWeather(String jsonString){
-
-        city = rootObj.get("name").getAsString();
+        Gson gson = new Gson();
+        Type model = new TypeToken<OpenWeatherMap>(){}.getType();
+        OpenWeatherMap openWeatherMap = gson.fromJson(jsonString, model);
+        city = openWeatherMap.getName() + ", " + openWeatherMap.getSys().getCountry();
         cityText.setText(city);
-        double temperature = main.get("temperature").getAsDouble();
-        currentWeather.setTemperature(temperature);
-        String weatherIcon = weather.get("icon").getAsString();
+        double temperature = (openWeatherMap.getMain().getTemp() - 273.15);
+        temperature = (int) (temperature * 100);
+        currentWeather.setTemperature(temperature / 100);
+        String weatherIcon = openWeatherMap.getWeather().get(0).getIcon();
         currentWeather.setIconString(weatherIcon);
         lastUpdate = LocalDateTime.now();
         for (int i = 0; i < 6; i++){
-            LocalDateTime newHour = LocalDateTime.now();
-            newHour.plusMinutes(i);
+            LocalDateTime newHour = LocalDateTime.now().plusMinutes(i+1);
             hourlyWeather[i].setDate(newHour);
             hourlyWeather[i].setIconString(currentWeather.getIconString());
             hourlyWeather[i].setTemperature(currentWeather.getTemperature());
         }
         for (int i = 0; i < 5; i++){
-            LocalDateTime newDay = LocalDateTime.now();
-            newDay.plusDays(i);
+            LocalDateTime newDay = LocalDateTime.now().plusDays(i+1);
             dailyWeather[i].setDate(newDay);
             dailyWeather[i].setIconString(currentWeather.getIconString());
             dailyWeather[i].setTemperature(currentWeather.getTemperature());
@@ -149,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             showWeather(s);
+            pd.dismiss();
         }
     }
 }

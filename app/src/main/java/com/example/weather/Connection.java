@@ -23,7 +23,7 @@ public class Connection {
                 StringBuilder stringBuilder = new StringBuilder();
                 int line;
                 while((line = reader.read()) != -1){ // -1 equals null
-                    stringBuilder.append(line);
+                    stringBuilder.append((char)line);
                 }
                 stream = stringBuilder.toString();
                 connection.disconnect();

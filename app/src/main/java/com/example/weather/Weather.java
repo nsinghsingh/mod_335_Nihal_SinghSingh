@@ -60,11 +60,11 @@ public class Weather {
             int currentDay = LocalDateTime.now().getDayOfYear();
             int currentYear = LocalDateTime.now().getYear();
             if(date.getDayOfYear() > currentDay || date.getYear() > currentYear){
-                String time = date.getHour() + ":" + date.getMinute();
-                dateText.setText(time);
+                dateText.setText(date.getDayOfWeek().name());
             }
             else{
-                dateText.setText(date.getDayOfWeek().name());
+                String time = date.getHour() + ":" + date.getMinute();
+                dateText.setText(time);
             }
         }
     }
