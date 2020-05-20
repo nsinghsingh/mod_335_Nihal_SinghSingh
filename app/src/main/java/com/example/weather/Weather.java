@@ -46,7 +46,7 @@ public class Weather {
 
     public void setTemperature(double temperature) {
         this.temperature = temperature;
-        String temperatureString = Double.toString(temperature);
+        String temperatureString = temperature + " C°";
         temperatureText.setText(temperatureString);
     }
 
@@ -60,10 +60,18 @@ public class Weather {
             int currentDay = LocalDateTime.now().getDayOfYear();
             int currentYear = LocalDateTime.now().getYear();
             if(date.getDayOfYear() > currentDay || date.getYear() > currentYear){
-                dateText.setText(date.getDayOfWeek().name());
+                String weekDay = date.getDayOfWeek().name();
+                weekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
+                dateText.setText(weekDay);
             }
             else{
-                String time = date.getHour() + ":" + date.getMinute();
+                String time;
+                if(date.getMinute() < 10){
+                    time = date.getHour() + ": 0" + date.getMinute();
+                }
+                else{
+                    time = date.getHour() + ":" + date.getMinute();
+                }
                 dateText.setText(time);
             }
         }

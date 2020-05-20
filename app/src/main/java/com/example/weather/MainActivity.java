@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -13,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private String city;
     private LocalDateTime lastUpdate;
     private LocationManager locationManager;
+    private float x1,x2,y1,y2;
 
     TextView cityText;
 
@@ -111,6 +114,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             dailyWeather[i].setIconString(currentWeather.getIconString());
             dailyWeather[i].setTemperature(currentWeather.getTemperature());
         }
+    }
+
+    public boolean onTouchEvent(MotionEvent touchEvent){
+        switch(touchEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y2 = touchEvent.getY();
+                if(x1 > x2){
+                Intent i = new Intent(MainActivity.this, Cities.class);
+                startActivity(i);
+            }
+            break;
+        }
+        return false;
     }
 
     @Override
