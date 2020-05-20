@@ -342,7 +342,7 @@
                 android:contentDescription="@string/icon_description"
                 android:maxHeight="36dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_lightningstorm" />
+                app:srcCompat="@drawable/ic_lightning" />
 
         </LinearLayout>
 

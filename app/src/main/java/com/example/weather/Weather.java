@@ -36,8 +36,47 @@ public class Weather {
 
     public void setIconString(String iconString) {
         this.iconString = iconString;
-        weatherIcon.setImageResource(R.drawable.ic_lightningstorm);
-        //TODO
+        switch(iconString){
+            case "01d":
+                weatherIcon.setImageResource(R.drawable.ic_day_clear);
+                break;
+            case "01n":
+                weatherIcon.setImageResource(R.drawable.ic_night_clear);
+                break;
+            case "02d":
+                weatherIcon.setImageResource(R.drawable.ic_sun_cloudy);
+                break;
+            case "02n":
+                weatherIcon.setImageResource(R.drawable.ic_night_cloudy);
+                break;
+            case "03d":
+            case "03n":
+                weatherIcon.setImageResource(R.drawable.ic_cloudy);
+                break;
+            case "09d":
+            case "09n":
+            case "10n":
+                weatherIcon.setImageResource(R.drawable.ic_raining);
+                break;
+            case "10d":
+                weatherIcon.setImageResource(R.drawable.ic_sun_raining);
+                break;
+            case "11d":
+            case "11n":
+                weatherIcon.setImageResource(R.drawable.ic_lightning);
+                break;
+            case "13d":
+            case "13n":
+                weatherIcon.setImageResource(R.drawable.ic_snowing);
+                break;
+            case "50d":
+            case "50n":
+                weatherIcon.setImageResource(R.drawable.ic_mist);
+                break;
+            default:
+                weatherIcon.setImageResource(R.drawable.ic_refresh);
+                break;
+        }
     }
 
     public double getTemperature() {
@@ -46,6 +85,9 @@ public class Weather {
 
     public void setTemperature(double temperature) {
         this.temperature = temperature;
+        temperature = temperature - 273.15;
+        temperature = (int) (temperature * 10);
+        temperature = temperature / 10;
         String temperatureString = temperature + " C°";
         temperatureText.setText(temperatureString);
     }

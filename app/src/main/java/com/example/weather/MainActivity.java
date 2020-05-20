@@ -96,13 +96,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         OpenWeatherMap openWeatherMap = gson.fromJson(jsonString, model);
         city = openWeatherMap.getName() + ", " + openWeatherMap.getSys().getCountry();
         cityText.setText(city);
-        double temperature = (openWeatherMap.getMain().getTemp() - 273.15);
-        temperature = (int) (temperature * 100);
-        currentWeather.setTemperature(temperature / 100);
-        String weatherIcon = openWeatherMap.getWeather().get(0).getIcon();
-        currentWeather.setIconString(weatherIcon);
+        currentWeather.setTemperature(openWeatherMap.getMain().getTemp());
+        currentWeather.setIconString(openWeatherMap.getWeather().get(0).getIcon());
         lastUpdate = LocalDateTime.now();
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++){ //The prognostics cost money so this is temporary substitute
             LocalDateTime newHour = LocalDateTime.now().plusMinutes(i+1);
             hourlyWeather[i].setDate(newHour);
             hourlyWeather[i].setIconString(currentWeather.getIconString());
